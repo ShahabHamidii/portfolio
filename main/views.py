@@ -32,7 +32,7 @@ def index(request):
         "phone": "+98 919-414-2393",
         "email": "shahabhamidi83@gmail.com",
         "github": "github.com/ShahabHamidii",
-        "linkedin": "linkedin.com/in/shahabhamidi",
+        "linkedin": "linkedin.com/in/shahabhamidii",
         "typewriter_lines": [
             "Building Scalable Backend Applications",
             "RESTful API Developer",
@@ -40,16 +40,13 @@ def index(request):
             "Python · Django · PostgreSQL · Docker",
         ],
         "summary": (
-            "I'm a backend-focused developer who genuinely enjoys the part most people skip — "
-            "the data model, the edge cases, the question of what happens when something goes wrong. "
-            "I'm currently building backend systems at IPCO and studying Software Engineering at "
-            "Kharazmi University, but most of what I know came from taking projects apart and "
-            "rebuilding them until they held up: a multi-vendor marketplace, a JWT-secured REST API, "
-            "a database designed from scratch. I care about security as a default, not a patch — "
-            "OWASP, hashing, clean permissions — and about writing code a teammate can actually read "
-            "six months later. I'm still early in my career, and I like it that way: I ask questions, "
-            "I ship, and I improve fast."
+            "Backend developer focused on Python, Django and building secure, well-modeled REST APIs."
         ),
+        "summary_paragraphs": [
+            "I'm a backend developer who likes the part most people skip — the data model, the edge cases, what happens when something goes wrong at 2am.",
+            "Right now I'm building backend systems at IPCO and studying Software Engineering at Kharazmi University, but most of what I actually know came from taking projects apart and rebuilding them until they held up: a multi-vendor marketplace, a JWT-secured REST API, a database designed from scratch.",
+            "Security is a default for me, not a patch — OWASP, hashing, clean permissions — and I try to write code a teammate can still read six months later. I'm early in my career, and I like it that way: I ask questions, I ship, and I improve fast.",
+        ],
         "interests": [
             "Back-End Development", "Cyber Security", "Open Source",
             "Problem Solving", "Linux",

@@ -2,400 +2,458 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{ name }} · {{ role }}</title>
-<meta name="description" content="{{ name }} — {{ role }}. {{ summary|slice:':140' }}">
-<meta name="theme-color" content="#0a0e15">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ name }} · {{ role }}</title>
+    <meta name="description" content="{{ name }} — {{ role }}. {{ summary|slice:':140' }}">
+    <meta name="theme-color" content="#0a0e15">
 
-<!-- Open Graph / social preview -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="{{ name }} · {{ role }}">
-<meta property="og:description" content="{{ summary|slice:':160' }}">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="{{ name }} · {{ role }}">
-<meta name="twitter:description" content="{{ summary|slice:':160' }}">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ name }} · {{ role }}">
+    <meta property="og:description" content="{{ summary|slice:':160' }}">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ name }} · {{ role }}">
+    <meta name="twitter:description" content="{{ summary|slice:':160' }}">
 
-<!-- Favicon: a simple "SH" monogram, no external file needed -->
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0e15'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='15' font-weight='700' fill='%234da8ff' text-anchor='middle'%3ESH%3C/text%3E%3C/svg%3E">
+    <link rel="icon"
+          href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0e15'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='15' font-weight='700' fill='%234da8ff' text-anchor='middle'%3ESH%3C/text%3E%3C/svg%3E">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{% static 'main/css/style.css' %}">
-<script>
-  (function () {
-    var saved = localStorage.getItem("theme");
-    var theme = saved || (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
-    document.documentElement.setAttribute("data-theme", theme);
-  })();
-</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    <script>
+        (function () {
+            var saved = localStorage.getItem("theme");
+            var theme = saved || (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+            document.documentElement.setAttribute("data-theme", theme);
+        })();
+    </script>
 </head>
 <body>
 
-<!-- Reusable icon defs -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="icon-github" viewBox="0 0 24 24">
-    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.333-1.755-1.333-1.755-1.089-.744.083-.729.083-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.807 1.305 3.492.998.108-.775.42-1.305.763-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
-  </symbol>
-  <symbol id="icon-linkedin" viewBox="0 0 24 24">
-    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-  </symbol>
-  <symbol id="icon-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="2.5" y="4.5" width="19" height="15" rx="2.2"/>
-    <path d="M3 6.5l9 6.5 9-6.5"/>
-  </symbol>
-  <symbol id="icon-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M4.5 3h3.6l1.5 4.5-2.2 1.8a13.5 13.5 0 0 0 6.3 6.3l1.8-2.2 4.5 1.5v3.6c0 1-.8 1.8-1.8 1.8C9.9 20.3 3.7 14.1 2.7 5.8 2.6 4.8 3.5 3 4.5 3z"/>
-  </symbol>
-  <symbol id="icon-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M12 3v12"/><path d="M6.5 10.5 12 16l5.5-5.5"/><path d="M4 20h16"/>
-  </symbol>
-  <symbol id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="12" cy="12" r="4.5"/>
-    <path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.5 1.5M18.3 18.3l1.5 1.5M2 12h2.2M19.8 12H22M4.2 19.8l1.5-1.5M18.3 5.7l1.5-1.5"/>
-  </symbol>
-  <symbol id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/>
-  </symbol>
-  <symbol id="icon-arrow-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M12 19V5"/><path d="M5.5 11.5 12 5l6.5 6.5"/>
-  </symbol>
+    <symbol id="icon-github" viewBox="0 0 24 24">
+        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.333-1.755-1.333-1.755-1.089-.744.083-.729.083-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.807 1.305 3.492.998.108-.775.42-1.305.763-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+    </symbol>
+    <symbol id="icon-linkedin" viewBox="0 0 24 24">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+    </symbol>
+    <symbol id="icon-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2.5" y="4.5" width="19" height="15" rx="2.2"/>
+        <path d="M3 6.5l9 6.5 9-6.5"/>
+    </symbol>
+    <symbol id="icon-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4.5 3h3.6l1.5 4.5-2.2 1.8a13.5 13.5 0 0 0 6.3 6.3l1.8-2.2 4.5 1.5v3.6c0 1-.8 1.8-1.8 1.8C9.9 20.3 3.7 14.1 2.7 5.8 2.6 4.8 3.5 3 4.5 3z"/>
+    </symbol>
+    <symbol id="icon-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3v12"/>
+        <path d="M6.5 10.5 12 16l5.5-5.5"/>
+        <path d="M4 20h16"/>
+    </symbol>
+    <symbol id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="4.5"/>
+        <path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.5 1.5M18.3 18.3l1.5 1.5M2 12h2.2M19.8 12H22M4.2 19.8l1.5-1.5M18.3 5.7l1.5-1.5"/>
+    </symbol>
+    <symbol id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/>
+    </symbol>
+    <symbol id="icon-arrow-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 19V5"/>
+        <path d="M5.5 11.5 12 5l6.5 6.5"/>
+    </symbol>
 </svg>
 
 <div class="noise-overlay"></div>
 
 <div class="cx-cursor" id="cx-cursor">
-  <span class="cx-diamond"></span>
-  <span class="cx-caret"></span>
+    <span class="cx-diamond"></span>
+    <span class="cx-caret"></span>
 </div>
 
 <!-- ===== NAV ===== -->
 <header class="nav" id="site-nav">
-  <div class="nav-inner">
-    <a href="#home" class="brand">
-      <span class="brand-bracket">&lt;</span>{{ name }}<span class="brand-bracket">/&gt;</span>
-    </a>
-    <nav class="nav-links" id="nav-links">
-      <a href="#home" class="nav-link" data-section="home">home</a>
-      <a href="#about" class="nav-link" data-section="about">about</a>
-      <a href="#experience" class="nav-link" data-section="experience">experience</a>
-      <a href="#education" class="nav-link" data-section="education">education</a>
-      <a href="#skills" class="nav-link" data-section="skills">skills</a>
-      <a href="#contact" class="nav-link" data-section="contact">contact</a>
-    </nav>
-    <div class="nav-actions">
-      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
-        <svg class="icon icon-sun"><use href="#icon-sun"/></svg>
-        <svg class="icon icon-moon"><use href="#icon-moon"/></svg>
-      </button>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
+    <div class="nav-inner">
+        <a href="#home" class="brand">
+            <span class="brand-bracket">&lt;</span>{{ name }}<span class="brand-bracket">/&gt;</span>
+        </a>
+        <nav class="nav-links" id="nav-links">
+            <a href="#home" class="nav-link" data-section="home">home</a>
+            <a href="#about" class="nav-link" data-section="about">about</a>
+            <a href="#experience" class="nav-link" data-section="experience">experience</a>
+            <a href="#education" class="nav-link" data-section="education">education</a>
+            <a href="#skills" class="nav-link" data-section="skills">skills</a>
+            <a href="#contact" class="nav-link" data-section="contact">contact</a>
+        </nav>
+        <div class="nav-actions">
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <svg class="icon icon-sun">
+                    <use href="#icon-sun"/>
+                </svg>
+                <svg class="icon icon-moon">
+                    <use href="#icon-moon"/>
+                </svg>
+            </button>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
     </div>
-  </div>
 </header>
 
 <main>
 
-<!-- ===== HOME ===== -->
-<section id="home" class="section hero">
-  <canvas id="hero-canvas" class="hero-canvas" aria-hidden="true"></canvas>
-  <div class="hero-grid">
-    <div class="hero-copy">
-      <p class="eyebrow"><span class="dot"></span> available for back-end internships</p>
-      <h1>{{ name }}<span class="cursor">_</span></h1>
-      <p class="hero-role">// {{ role }}</p>
-      <p class="hero-sub"><span id="typewriter" class="typewriter"></span><span class="tw-cursor">|</span></p>
-      {{ typewriter_lines|json_script:"typewriter-data" }}
-      <div class="hero-actions">
-        <a href="#contact" class="btn btn-primary">get in touch</a>
-        <a href="#experience" class="btn btn-ghost">view my work</a>
-      </div>
-    </div>
+    <!-- ===== HOME ===== -->
+    <section id="home" class="section hero">
+        <canvas id="hero-canvas" class="hero-canvas" aria-hidden="true"></canvas>
+        <div class="hero-grid">
+            <div class="hero-copy">
+                <p class="eyebrow"><span class="dot"></span> Software Engineer</p>
+                <h1>{{ name }}<span class="cursor">_</span></h1>
+                <p class="hero-role">// {{ role }}</p>
+                <p class="hero-sub"><span id="typewriter" class="typewriter"></span><span class="tw-cursor">|</span></p>
+                {{ typewriter_lines|json_script:"typewriter-data" }}
+                <div class="hero-actions">
+                    <a href="#contact" class="btn btn-primary">get in touch</a>
+                    <a href="#experience" class="btn btn-ghost">view my work</a>
+                </div>
+            </div>
 
-    <div class="terminal" id="terminal">
-      <div class="terminal-bar">
-        <span class="tdot tdot-r"></span><span class="tdot tdot-y"></span><span class="tdot tdot-g"></span>
-        <span class="terminal-title">shahab@backend:~</span>
-      </div>
-      <div class="terminal-body" id="terminal-body"></div>
-    </div>
-  </div>
-  <a href="#about" class="scroll-cue" aria-label="Scroll down"><span></span></a>
-</section>
+            <div class="terminal" id="terminal">
+                <div class="terminal-bar">
+                    <span class="tdot tdot-r"></span><span class="tdot tdot-y"></span><span class="tdot tdot-g"></span>
+                    <span class="terminal-title">shahab@backend:~</span>
+                </div>
+                <div class="terminal-body" id="terminal-body"></div>
+            </div>
+        </div>
+        <a href="#about" class="scroll-cue" aria-label="Scroll down"><span></span></a>
+    </section>
 
-<!-- ===== ABOUT ===== -->
-<section id="about" class="section">
-  <p class="section-tag">01 // about</p>
-  <h2 class="section-title">About Me</h2>
+    <!-- ===== ABOUT ===== -->
+    <section id="about" class="section">
+        <p class="section-tag">01 // about</p>
+        <h2 class="section-title">About Me</h2>
 
-  <div class="about-grid">
-    <p class="about-text">{{ summary }}</p>
+        <div class="about-grid">
+            <div class="about-text-block">
+                {% for para in summary_paragraphs %}
+                    <p class="about-text">{{ para }}</p>
+                {% endfor %}
+            </div>
 
-    <div class="about-side">
-      <div class="info-card">
-        <div class="info-row"><span class="info-key">location</span><span class="info-val">{{ location }}</span></div>
-        <div class="info-row"><span class="info-key">phone</span><span class="info-val">{{ phone }}</span></div>
-        <div class="info-row info-row-icons">
-          <span class="info-key">reach me</span>
-          <span class="icon-links">
+            <div class="about-side">
+                <div class="info-card">
+                    <div class="info-row"><span class="info-key">location</span><span
+                            class="info-val">{{ location }}</span></div>
+                    <div class="info-row"><span class="info-key">phone</span><span class="info-val">{{ phone }}</span>
+                    </div>
+                    <div class="info-row info-row-icons">
+                        <span class="info-key">reach me</span>
+                        <span class="icon-links">
             <a href="mailto:{{ email }}" class="icon-link" aria-label="Email" title="Email">
               <svg class="icon"><use href="#icon-mail"/></svg>
             </a>
-            <a href="https://{{ github }}" target="_blank" rel="noopener" class="icon-link" aria-label="GitHub" title="GitHub">
+            <a href="https://{{ github }}" target="_blank" rel="noopener" class="icon-link" aria-label="GitHub"
+               title="GitHub">
               <svg class="icon"><use href="#icon-github"/></svg>
             </a>
-            <a href="https://{{ linkedin }}" target="_blank" rel="noopener" class="icon-link" aria-label="LinkedIn" title="LinkedIn">
+            <a href="https://{{ linkedin }}" target="_blank" rel="noopener" class="icon-link" aria-label="LinkedIn"
+               title="LinkedIn">
               <svg class="icon"><use href="#icon-linkedin"/></svg>
             </a>
           </span>
+                    </div>
+                </div>
+
+                <div class="resume-card">
+                    <div class="resume-card-text">
+                        <span class="resume-card-title">Resume / CV</span>
+                        <span class="resume-card-sub">PDF · one page</span>
+                    </div>
+                    <a href="{{ resume_url }}" class="btn btn-primary btn-sm" download>
+                        <svg class="icon icon-inline">
+                            <use href="#icon-download"/>
+                        </svg>
+                        download
+                    </a>
+                </div>
+
+                <div class="tag-cloud">
+                    {% for interest in interests %}
+                        <span class="tag">{{ interest }}</span>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
-      </div>
+    </section>
 
-      <div class="resume-card">
-        <div class="resume-card-text">
-          <span class="resume-card-title">Resume / CV</span>
-          <span class="resume-card-sub">PDF · one page</span>
+    <!-- ===== EXPERIENCE ===== -->
+    <section id="experience" class="section">
+        <p class="section-tag">02 // experience</p>
+        <h2 class="section-title">Experience &amp; Projects</h2>
+
+        {% if job %}
+            <article class="job-card reveal">
+                <div class="project-head">
+                    <h3>{{ job.title }}</h3>
+                    <span class="project-period">{{ job.period }}</span>
+                </div>
+                <ul class="job-list">
+                    {% for b in job.bullets %}
+                        <li>{{ b }}</li>{% endfor %}
+                </ul>
+            </article>
+        {% endif %}
+
+        <div class="timeline">
+            {% for item in experience %}
+                <article class="project-card reveal">
+                    <div class="project-head">
+                        <h3>{{ item.title }}</h3>
+                        <span class="project-period">{{ item.period }}</span>
+                    </div>
+                    <p class="project-stack">{{ item.stack }}</p>
+
+                    <div class="project-cols">
+                        <div>
+                            <h4>Features</h4>
+                            <ul class="check-list">
+                                {% for f in item.features %}
+                                    <li>{{ f }}</li>{% endfor %}
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Challenges solved</h4>
+                            <ul class="arrow-list">
+                                {% for c in item.challenges %}
+                                    <li>{{ c }}</li>{% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+
+                    {% if item.repo %}
+                        <a href="{{ item.repo }}" target="_blank" rel="noopener" class="project-link">
+                            <svg class="icon icon-inline">
+                                <use href="#icon-github"/>
+                            </svg>
+                            view code
+                        </a>
+                    {% endif %}
+                </article>
+            {% endfor %}
         </div>
-        <a href="{{ resume_url }}" class="btn btn-primary btn-sm" download>
-          <svg class="icon icon-inline"><use href="#icon-download"/></svg> download
-        </a>
-      </div>
 
-      <div class="tag-cloud">
-        {% for interest in interests %}
-        <span class="tag">{{ interest }}</span>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-</section>
+        {% if projects %}
+            <h3 class="sub-heading">Other Projects</h3>
+            <div class="project-grid">
+                {% for p in projects %}
+                    <article class="mini-project-card reveal">
+                        <h4>{{ p.name }}</h4>
+                        <p class="project-stack">{{ p.stack }}</p>
+                        <ul class="tag-list">
+                            {% for t in p.tags %}
+                                <li>{{ t }}</li>{% endfor %}
+                        </ul>
+                        {% if p.repo %}
+                            <a href="{{ p.repo }}" target="_blank" rel="noopener" class="project-link project-link-sm">
+                                <svg class="icon icon-inline">
+                                    <use href="#icon-github"/>
+                                </svg>
+                                code
+                            </a>
+                        {% endif %}
+                    </article>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </section>
 
-<!-- ===== EXPERIENCE ===== -->
-<section id="experience" class="section">
-  <p class="section-tag">02 // experience</p>
-  <h2 class="section-title">Experience &amp; Projects</h2>
+    <!-- ===== EDUCATION ===== -->
+    <section id="education" class="section">
+        <p class="section-tag">03 // education</p>
+        <h2 class="section-title">Education &amp; Certifications</h2>
 
-  {% if job %}
-  <article class="job-card reveal">
-    <div class="project-head">
-      <h3>{{ job.title }}</h3>
-      <span class="project-period">{{ job.period }}</span>
-    </div>
-    <ul class="job-list">
-      {% for b in job.bullets %}<li>{{ b }}</li>{% endfor %}
-    </ul>
-  </article>
-  {% endif %}
-
-  <div class="timeline">
-    {% for item in experience %}
-    <article class="project-card reveal">
-      <div class="project-head">
-        <h3>{{ item.title }}</h3>
-        <span class="project-period">{{ item.period }}</span>
-      </div>
-      <p class="project-stack">{{ item.stack }}</p>
-
-      <div class="project-cols">
-        <div>
-          <h4>Features</h4>
-          <ul class="check-list">
-            {% for f in item.features %}<li>{{ f }}</li>{% endfor %}
-          </ul>
+        <div class="edu-grid">
+            <div class="edu-col">
+                <h4>Education</h4>
+                {% for e in education %}
+                    <div class="edu-card reveal">
+                        <p class="edu-degree">{{ e.degree }}</p>
+                        <p class="edu-school">{{ e.school }}</p>
+                        <p class="edu-period">{{ e.period }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="edu-col">
+                <h4>Certifications</h4>
+                <ul class="cert-list">
+                    {% for c in certifications %}
+                        <li><span class="cert-icon">✓</span>{{ c }}</li>{% endfor %}
+                </ul>
+            </div>
         </div>
-        <div>
-          <h4>Challenges solved</h4>
-          <ul class="arrow-list">
-            {% for c in item.challenges %}<li>{{ c }}</li>{% endfor %}
-          </ul>
+    </section>
+
+    <!-- ===== SKILLS ===== -->
+    <section id="skills" class="section">
+        <p class="section-tag">04 // skills</p>
+        <h2 class="section-title">Technical Skills</h2>
+
+        <div class="skill-tabs" id="skill-tabs">
+            {% for group in skill_groups %}
+                <button class="skill-tab {% if forloop.first %}active{% endif %}"
+                        data-target="tab-{{ group.id }}">{{ group.label }}</button>
+            {% endfor %}
         </div>
-      </div>
 
-      {% if item.repo %}
-      <a href="{{ item.repo }}" target="_blank" rel="noopener" class="project-link">
-        <svg class="icon icon-inline"><use href="#icon-github"/></svg> view code
-      </a>
-      {% endif %}
-    </article>
-    {% endfor %}
-  </div>
-
-  {% if projects %}
-  <h3 class="sub-heading">Other Projects</h3>
-  <div class="project-grid">
-    {% for p in projects %}
-    <article class="mini-project-card reveal">
-      <h4>{{ p.name }}</h4>
-      <p class="project-stack">{{ p.stack }}</p>
-      <ul class="tag-list">
-        {% for t in p.tags %}<li>{{ t }}</li>{% endfor %}
-      </ul>
-      {% if p.repo %}
-      <a href="{{ p.repo }}" target="_blank" rel="noopener" class="project-link project-link-sm">
-        <svg class="icon icon-inline"><use href="#icon-github"/></svg> code
-      </a>
-      {% endif %}
-    </article>
-    {% endfor %}
-  </div>
-  {% endif %}
-</section>
-
-<!-- ===== EDUCATION ===== -->
-<section id="education" class="section">
-  <p class="section-tag">03 // education</p>
-  <h2 class="section-title">Education &amp; Certifications</h2>
-
-  <div class="edu-grid">
-    <div class="edu-col">
-      <h4>Education</h4>
-      {% for e in education %}
-      <div class="edu-card reveal">
-        <p class="edu-degree">{{ e.degree }}</p>
-        <p class="edu-school">{{ e.school }}</p>
-        <p class="edu-period">{{ e.period }}</p>
-      </div>
-      {% endfor %}
-    </div>
-    <div class="edu-col">
-      <h4>Certifications</h4>
-      <ul class="cert-list">
-        {% for c in certifications %}<li><span class="cert-icon">✓</span>{{ c }}</li>{% endfor %}
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ===== SKILLS ===== -->
-<section id="skills" class="section">
-  <p class="section-tag">04 // skills</p>
-  <h2 class="section-title">Technical Skills</h2>
-
-  <div class="skill-tabs" id="skill-tabs">
-    {% for group in skill_groups %}
-    <button class="skill-tab {% if forloop.first %}active{% endif %}" data-target="tab-{{ group.id }}">{{ group.label }}</button>
-    {% endfor %}
-  </div>
-
-  <div class="skill-panels">
-    {% for group in skill_groups %}
-    <div class="skill-panel {% if forloop.first %}active{% endif %}" id="tab-{{ group.id }}">
-      {% for s in group.skills %}
-      <div class="skill-bar-item">
-        <div class="skill-bar-head">
-          <span>{{ s.name }}</span>
-          <span class="skill-pct">{{ s.level }}%</span>
+        <div class="skill-panels">
+            {% for group in skill_groups %}
+                <div class="skill-panel {% if forloop.first %}active{% endif %}" id="tab-{{ group.id }}">
+                    {% for s in group.skills %}
+                        <div class="skill-bar-item">
+                            <div class="skill-bar-head">
+                                <span>{{ s.name }}</span>
+                                <span class="skill-pct">{{ s.level }}%</span>
+                            </div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" data-level="{{ s.level }}"></div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
         </div>
-        <div class="skill-bar-track">
-          <div class="skill-bar-fill" data-level="{{ s.level }}"></div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" class="section contact-section">
+        <p class="section-tag">05 // contact</p>
+        <h2 class="section-title">Let's Work Together</h2>
+        <p class="contact-sub">Have a back-end role, a project, or just want to say hi? My inbox is open.</p>
+        <p class="contact-meta">
+            <span class="dot"></span> usually replies within 24–48h
+        </p>
+
+        {% if messages %}
+            {% for m in messages %}
+                <div class="form-alert form-alert-{{ m.tags }}">{{ m }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <div class="contact-layout">
+            <div class="contact-grid">
+                <a class="contact-card" href="mailto:{{ email }}">
+                    <svg class="icon">
+                        <use href="#icon-mail"/>
+                    </svg>
+                    <span class="contact-label">Email</span>
+                </a>
+                <a class="contact-card" href="tel:{{ phone }}">
+                    <svg class="icon">
+                        <use href="#icon-phone"/>
+                    </svg>
+                    <span class="contact-label">Phone</span>
+                </a>
+                <a class="contact-card" href="https://{{ github }}" target="_blank" rel="noopener">
+                    <svg class="icon">
+                        <use href="#icon-github"/>
+                    </svg>
+                    <span class="contact-label">GitHub</span>
+                </a>
+                <a class="contact-card" href="https://{{ linkedin }}" target="_blank" rel="noopener">
+                    <svg class="icon">
+                        <use href="#icon-linkedin"/>
+                    </svg>
+                    <span class="contact-label">LinkedIn</span>
+                </a>
+            </div>
+
+            <form class="contact-form" method="post" action="#contact">
+                {% csrf_token %}
+                <div class="form-row">
+                    <label for="f-name">name</label>
+                    <input type="text" id="f-name" name="name" placeholder="your name" required>
+                </div>
+                <div class="form-row">
+                    <label for="f-email">email</label>
+                    <input type="email" id="f-email" name="email" placeholder="you@example.com" required>
+                </div>
+                <div class="form-row">
+                    <label for="f-message">message</label>
+                    <textarea id="f-message" name="message" rows="4" placeholder="tell me about the role or project..."
+                              required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">send message</button>
+            </form>
         </div>
-      </div>
-      {% endfor %}
-    </div>
-    {% endfor %}
-  </div>
-</section>
-
-<!-- ===== CONTACT ===== -->
-<section id="contact" class="section contact-section">
-  <p class="section-tag">05 // contact</p>
-  <h2 class="section-title">Let's Work Together</h2>
-  <p class="contact-sub">Have a back-end role, a project, or just want to say hi? My inbox is open.</p>
-  <p class="contact-meta">
-    <span class="dot"></span> usually replies within 24–48h
-  </p>
-
-  {% if messages %}
-    {% for m in messages %}
-    <div class="form-alert form-alert-{{ m.tags }}">{{ m }}</div>
-    {% endfor %}
-  {% endif %}
-
-  <div class="contact-layout">
-    <div class="contact-grid">
-      <a class="contact-card" href="mailto:{{ email }}">
-        <svg class="icon"><use href="#icon-mail"/></svg>
-        <span class="contact-label">Email</span>
-      </a>
-      <a class="contact-card" href="tel:{{ phone }}">
-        <svg class="icon"><use href="#icon-phone"/></svg>
-        <span class="contact-label">Phone</span>
-      </a>
-      <a class="contact-card" href="https://{{ github }}" target="_blank" rel="noopener">
-        <svg class="icon"><use href="#icon-github"/></svg>
-        <span class="contact-label">GitHub</span>
-      </a>
-      <a class="contact-card" href="https://{{ linkedin }}" target="_blank" rel="noopener">
-        <svg class="icon"><use href="#icon-linkedin"/></svg>
-        <span class="contact-label">LinkedIn</span>
-      </a>
-    </div>
-
-    <form class="contact-form" method="post" action="#contact">
-      {% csrf_token %}
-      <div class="form-row">
-        <label for="f-name">name</label>
-        <input type="text" id="f-name" name="name" placeholder="your name" required>
-      </div>
-      <div class="form-row">
-        <label for="f-email">email</label>
-        <input type="email" id="f-email" name="email" placeholder="you@example.com" required>
-      </div>
-      <div class="form-row">
-        <label for="f-message">message</label>
-        <textarea id="f-message" name="message" rows="4" placeholder="tell me about the role or project..." required></textarea>
-      </div>
-      <button type="submit" class="btn btn-primary btn-block">send message</button>
-    </form>
-  </div>
-</section>
+    </section>
 
 </main>
 
 <footer class="site-footer">
-  <div class="footer-grid">
-    <div class="footer-col footer-brand">
-      <a href="#home" class="brand">
-        <span class="brand-bracket">&lt;</span>{{ name }}<span class="brand-bracket">/&gt;</span>
-      </a>
-      <p class="footer-tagline">
-        Passionate software developer specializing in backend development with expertise in
-        Python, Django, and building secure, well-modeled REST APIs.
-      </p>
+    <div class="footer-grid">
+        <div class="footer-col footer-brand">
+            <a href="#home" class="brand">
+                <span class="brand-bracket">&lt;</span>{{ name }}<span class="brand-bracket">/&gt;</span>
+            </a>
+            <p class="footer-tagline">
+                Passionate software developer specializing in backend development with expertise in
+                Python, Django, and building secure, well-modeled REST APIs.
+            </p>
+        </div>
+
+        <div class="footer-col">
+            <h4 class="footer-heading">Quick Links</h4>
+            <ul class="footer-list">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h4 class="footer-heading">Contact</h4>
+            <p class="footer-location">📍Tehran, Iran</p>
+            <div class="footer-links">
+                <a href="mailto:{{ email }}" class="icon-link" aria-label="Email">
+                    <svg class="icon">
+                        <use href="#icon-mail"/>
+                    </svg>
+                </a>
+                <a href="https://{{ github }}" target="_blank" rel="noopener" class="icon-link" aria-label="GitHub">
+                    <svg class="icon">
+                        <use href="#icon-github"/>
+                    </svg>
+                </a>
+                <a href="https://{{ linkedin }}" target="_blank" rel="noopener" class="icon-link" aria-label="LinkedIn">
+                    <svg class="icon">
+                        <use href="#icon-linkedin"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
     </div>
 
-    <div class="footer-col">
-      <h4 class="footer-heading">Quick Links</h4>
-      <ul class="footer-list">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#education">Education</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
+    <div class="footer-bottom">
+        <p>© <span id="year"></span> {{ name }}. Built with Django.</p>
     </div>
-
-    <div class="footer-col">
-      <h4 class="footer-heading">Contact</h4>
-      <p class="footer-location">📍Tehran, Iran</p>
-      <div class="footer-links">
-        <a href="mailto:{{ email }}" class="icon-link" aria-label="Email"><svg class="icon"><use href="#icon-mail"/></svg></a>
-        <a href="https://{{ github }}" target="_blank" rel="noopener" class="icon-link" aria-label="GitHub"><svg class="icon"><use href="#icon-github"/></svg></a>
-        <a href="https://{{ linkedin }}" target="_blank" rel="noopener" class="icon-link" aria-label="LinkedIn"><svg class="icon"><use href="#icon-linkedin"/></svg></a>
-      </div>
-    </div>
-  </div>
-
-  <div class="footer-bottom">
-    <p>© <span id="year"></span> {{ name }}. Built with Django.</p>
-  </div>
 </footer>
 
 <button id="back-to-top" class="back-to-top" aria-label="Back to top">
-  <svg class="icon"><use href="#icon-arrow-up"/></svg>
+    <svg class="icon">
+        <use href="#icon-arrow-up"/>
+    </svg>
 </button>
 
 <script src="{% static 'main/js/script.js' %}"></script>
