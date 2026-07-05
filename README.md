@@ -4,8 +4,7 @@ A single-page portfolio site built with Django — dark/light mode, an interacti
 particle-network hero, a custom cursor, and a contact form backed by a real
 database.
 
-**Live:** _add your deployed URL here once it's live_
-
+shahabhamidi.ir
 ---
 
 ## Features
@@ -55,7 +54,7 @@ portfolio_project/
 ## Getting started
 
 ```bash
-git clone https://github.com/ShahabHamidii/<this-repo>.git
+git clone https://github.com/ShahabHamidii/portfolio.git
 cd portfolio_project
 python -m venv venv
 source venv/bin/activate        # Windows: venv\Scripts\activate
